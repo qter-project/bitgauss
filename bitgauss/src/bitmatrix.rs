@@ -457,8 +457,8 @@ impl BitMatrix {
     /// If `full` is true, then perform full Gauss-Jordan to produce reduced echelon form, otherwise
     /// just returns echelon form.
     #[inline]
-    pub fn gauss(&mut self, full: bool) {
-        self.gauss_helper(full, 1, &mut ());
+    pub fn gauss(&mut self, full: bool) -> Vec<usize> {
+        self.gauss_helper(full, 1, &mut ())
     }
 
     /// Performs gaussian elimination with a `chunksize` and a `proxy`
@@ -470,14 +470,19 @@ impl BitMatrix {
     /// - `proxy`: a struct that implements [`RowOps`] and receives the same row operations as the
     ///   matrix being reduced. This can be used e.g. for reversible logic circuit synthesis
     #[inline]
-    pub fn gauss_with_proxy(&mut self, full: bool, chunksize: usize, proxy: &mut impl RowOps) {
-        self.gauss_helper(full, chunksize, proxy);
+    pub fn gauss_with_proxy(
+        &mut self,
+        full: bool,
+        chunksize: usize,
+        proxy: &mut impl RowOps,
+    ) -> Vec<usize> {
+        self.gauss_helper(full, chunksize, proxy)
     }
 
     /// Performs gaussian elimination using the Patel-Markov-Hayes algorithm with the given `chunksize`
     #[inline]
-    pub fn gauss_with_chunksize(&mut self, full: bool, chunksize: usize) {
-        self.gauss_helper(full, chunksize, &mut ());
+    pub fn gauss_with_chunksize(&mut self, full: bool, chunksize: usize) -> Vec<usize> {
+        self.gauss_helper(full, chunksize, &mut ())
     }
 
     /// Computes the rank of the matrix using gaussian elimination
