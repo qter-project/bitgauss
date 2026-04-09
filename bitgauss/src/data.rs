@@ -373,6 +373,11 @@ impl BitData {
         BitData(vec![BitBlock::MAX; num_blocks])
     }
 
+    /// Constructs a new empty [`BitData`].
+    pub fn new() -> Self {
+        Self::default()
+    }
+
     /// Constructs a new [`BitData`] with the specified capacity in blocks
     pub fn with_capacity(num_blocks: usize) -> Self {
         BitData(Vec::with_capacity(num_blocks))
